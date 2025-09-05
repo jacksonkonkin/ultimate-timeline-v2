@@ -21,7 +21,6 @@ const Header = ({
   
   const { user: authUser, signOut } = useAuth();
   const isAuthenticated = !!authUser;
-  const userProfile = authUser;
 
   const isPositiveChange = dailyChange >= 0;
 
