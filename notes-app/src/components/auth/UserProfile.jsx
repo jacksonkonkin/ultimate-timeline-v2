@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Tabs from '@radix-ui/react-tabs';
 import { useAuth } from '../../context/AuthContext';
 import './UserProfile.css';
 
 const UserProfile = ({ isOpen, onClose }) => {
-  const { user, logout } = useAuth();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     fullName: '',
@@ -14,7 +16,6 @@ const UserProfile = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState('profile');
 
   const userProfile = user;
-  const signOut = logout;
   const isLoading = false;
 
   React.useEffect(() => {
@@ -37,6 +38,7 @@ const UserProfile = ({ isOpen, onClose }) => {
   const handleSignOut = async () => {
     await signOut();
     onClose();
+    navigate('/signin');
   };
 
   const formatCurrency = (amount) => {
