@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS user_profiles (
 );
 
 -- Enable Row Level Security
-ALTER TABLE notes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
 
 -- Create a policy that allows all operations for anonymous users
