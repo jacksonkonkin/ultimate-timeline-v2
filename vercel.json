@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "ultimate-timeline-notes",
+  "builds": [
+    {
+      "src": "notes-app/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "notes-app/build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/notes-app/$1"
+    }
+  ],
+  "buildCommand": "cd notes-app && npm run build",
+  "outputDirectory": "notes-app/build",
+  "installCommand": "cd notes-app && npm install"
+}
