@@ -41,11 +41,11 @@
 ### Phase 2: Data Layer (Single Session Tasks)
 
 **Task 2.1: Database Schema Design**
-- [ ] Design users table with portfolio data
-- [ ] Create trades table for transaction history
-- [ ] Set up stocks/watchlist tables
-- [ ] Create achievements/gamification tables
-- [ ] Write Supabase migration scripts
+- [x] Design users table with portfolio data
+- [x] Create trades table for transaction history
+- [x] Set up stocks/watchlist tables
+- [x] Create achievements/gamification tables
+- [x] Write Supabase migration scripts
 
 **Task 2.2: Stock Data API Integration**
 - [ ] Research and choose stock data provider (Alpha Vantage, IEX)
