@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { useAuthStore } from '../../store/authStore';
-import { AuthModal, UserProfile } from '../auth';
+import { useAuth } from '../../context/AuthContext';
+import { UserProfile } from '../auth';
 import './Header.css';
 
 const Header = ({ 
@@ -15,11 +15,12 @@ const Header = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   
-  const { isAuthenticated, signOut, getUserProfile } = useAuthStore();
-  const userProfile = getUserProfile();
+  const { user: authUser, logout } = useAuth();
+  const isAuthenticated = !!authUser;
+  const userProfile = authUser;
+  const signOut = logout;
 
   const isPositiveChange = dailyChange >= 0;
 
@@ -155,7 +156,7 @@ const Header = ({
             ) : (
               <button 
                 className="auth-button"
-                onClick={() => setShowAuthModal(true)}
+                onClick={() => window.location.href = '/signin'}
               >
                 Sign In
               </button>
@@ -163,12 +164,6 @@ const Header = ({
           </div>
         </div>
       </div>
-
-      {/* Auth Modal */}
-      <AuthModal 
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-      />
 
       {/* User Profile Modal */}
       <UserProfile 

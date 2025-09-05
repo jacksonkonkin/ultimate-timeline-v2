@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Tabs from '@radix-ui/react-tabs';
-import { useAuthStore } from '../../store/authStore';
+import { useAuth } from '../../context/AuthContext';
 import './UserProfile.css';
 
 const UserProfile = ({ isOpen, onClose }) => {
-  const { user, signOut, updateProfile, isLoading, getUserProfile } = useAuthStore();
+  const { user, logout } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     fullName: '',
@@ -13,7 +13,9 @@ const UserProfile = ({ isOpen, onClose }) => {
   });
   const [activeTab, setActiveTab] = useState('profile');
 
-  const userProfile = getUserProfile();
+  const userProfile = user;
+  const signOut = logout;
+  const isLoading = false;
 
   React.useEffect(() => {
     if (userProfile) {
@@ -27,13 +29,9 @@ const UserProfile = ({ isOpen, onClose }) => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     
-    const { data, error } = await updateProfile({
-      full_name: editForm.fullName
-    });
-
-    if (!error) {
-      setIsEditing(false);
-    }
+    // TODO: Implement profile update with AuthContext
+    // For now, just close the edit form
+    setIsEditing(false);
   };
 
   const handleSignOut = async () => {
