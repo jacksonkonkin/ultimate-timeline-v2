@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useAuth } from '../../context/AuthContext';
@@ -16,11 +17,11 @@ const Header = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const navigate = useNavigate();
   
-  const { user: authUser, logout } = useAuth();
+  const { user: authUser, signOut } = useAuth();
   const isAuthenticated = !!authUser;
   const userProfile = authUser;
-  const signOut = logout;
 
   const isPositiveChange = dailyChange >= 0;
 
@@ -32,6 +33,7 @@ const Header = ({
 
   const handleSignOut = async () => {
     await signOut();
+    navigate('/signin');
   };
 
   const getAvatarInitials = (name) => {
@@ -111,22 +113,24 @@ const Header = ({
 
           {/* User Avatar / Auth */}
           <div className="user-section">
-            {isAuthenticated && user ? (
+            {isAuthenticated && authUser ? (
               <DropdownMenu.Root>
                 <DropdownMenu.Trigger asChild>
                   <button className="user-avatar-button">
-                    {user.avatar ? (
+                    {authUser.user_metadata?.avatar_url ? (
                       <img 
-                        src={user.avatar} 
-                        alt={user.name || 'User'} 
+                        src={authUser.user_metadata.avatar_url} 
+                        alt={authUser.user_metadata?.full_name || 'User'} 
                         className="avatar-image"
                       />
                     ) : (
                       <div className="avatar-initials">
-                        {getAvatarInitials(user.name)}
+                        {getAvatarInitials(authUser.user_metadata?.full_name || authUser.email)}
                       </div>
                     )}
-                    <span className="user-name">{user.name || 'Trader'}</span>
+                    <span className="user-name">
+                      {authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Trader'}
+                    </span>
                     <span className="dropdown-arrow">▾</span>
                   </button>
                 </DropdownMenu.Trigger>
