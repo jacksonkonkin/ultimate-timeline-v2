@@ -1,0 +1,149 @@
+/* Design System Tokens - Stock Trading Simulator */
+
+:root {
+  /* ===== COLOR SYSTEM ===== */
+  /* Primary Backgrounds */
+  --primary-dark: #0A0E27;        /* Deep navy background */
+  --primary-surface: #131825;     /* Card backgrounds */
+  --primary-elevated: #1C2333;    /* Elevated surfaces */
+  
+  /* Accent Colors */
+  --accent-green: #00D4AA;        /* Profit, buy, success */
+  --accent-red: #FF3B69;          /* Loss, sell, danger */
+  --accent-gold: #FFB800;         /* Premium, achievements */
+  --accent-blue: #4A7FFF;         /* Primary actions, links */
+  
+  /* Text Colors */
+  --text-primary: #FFFFFF;        /* Main text */
+  --text-secondary: #94A3B8;      /* Secondary text */
+  --text-muted: #64748B;          /* Disabled, hints */
+  
+  /* Chart Colors */
+  --chart-1: #8B5CF6;            /* Purple for charts */
+  --chart-2: #06B6D4;            /* Cyan for charts */
+  --chart-3: #F59E0B;            /* Amber for charts */
+  
+  /* ===== TYPOGRAPHY ===== */
+  /* Font Families */
+  --font-display: 'Space Grotesk', sans-serif;     /* Headlines, numbers */
+  --font-body: 'Inter', sans-serif;                /* Body text */
+  --font-mono: 'JetBrains Mono', monospace;        /* Stock tickers, codes */
+  
+  /* Font Sizes */
+  --text-xs: 0.75rem;     /* 12px - Labels, captions */
+  --text-sm: 0.875rem;    /* 14px - Secondary text */
+  --text-base: 1rem;      /* 16px - Body text */
+  --text-lg: 1.125rem;    /* 18px - Emphasized body */
+  --text-xl: 1.25rem;     /* 20px - Section headers */
+  --text-2xl: 1.5rem;     /* 24px - Page headers */
+  --text-3xl: 2rem;       /* 32px - Major numbers */
+  --text-4xl: 2.5rem;     /* 40px - Hero numbers */
+  
+  /* ===== SPACING ===== */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  
+  /* ===== BORDER RADIUS ===== */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(74, 127, 255, 0.3);
+  
+  /* ===== Z-INDEX LAYERS ===== */
+  --z-dropdown: 100;
+  --z-modal: 200;
+  --z-notification: 300;
+  --z-tooltip: 400;
+  
+  /* ===== RESPONSIVE BREAKPOINTS ===== */
+  --mobile: 639px;        /* 0-639px - Single column, bottom nav */
+  --tablet: 1023px;       /* 640-1023px - Two columns, condensed */
+  --desktop: 1439px;      /* 1024-1439px - Full layout */
+  --wide: 1440px;         /* 1440px+ - Extra breathing room */
+}
+
+/* ===== UTILITY GRADIENTS ===== */
+:root {
+  --gradient-primary: linear-gradient(135deg, #4A7FFF, #6B8CFF);
+  --gradient-success: linear-gradient(135deg, #00D4AA, #00E6BC);
+  --gradient-danger: linear-gradient(135deg, #FF3B69, #FF5580);
+  --gradient-warning: linear-gradient(135deg, #FFB800, #FFC533);
+  --gradient-surface: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== ANIMATION TOKENS ===== */
+:root {
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.3s ease-out;
+  --transition-slow: 0.5s ease-out;
+  
+  --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== COMPONENT STATE CLASSES ===== */
+.number-up { 
+  color: var(--accent-green); 
+  transform: translateY(-2px); 
+}
+
+.number-down { 
+  color: var(--accent-red); 
+  transform: translateY(2px); 
+}
+
+.surface-frosted {
+  background: var(--gradient-surface);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glow-primary {
+  box-shadow: var(--shadow-glow);
+}
+
+/* ===== RESPONSIVE BREAKPOINT MIXINS AS CSS CLASSES ===== */
+@media (max-width: 639px) {
+  .mobile-only { display: block; }
+  .tablet-up { display: none; }
+  .desktop-up { display: none; }
+  .wide-up { display: none; }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .mobile-only { display: none; }
+  .tablet-only { display: block; }
+  .tablet-up { display: block; }
+  .desktop-up { display: none; }
+  .wide-up { display: none; }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .mobile-only { display: none; }
+  .tablet-only { display: none; }
+  .tablet-up { display: block; }
+  .desktop-only { display: block; }
+  .desktop-up { display: block; }
+  .wide-up { display: none; }
+}
+
+@media (min-width: 1440px) {
+  .mobile-only { display: none; }
+  .tablet-only { display: none; }
+  .desktop-only { display: none; }
+  .tablet-up { display: block; }
+  .desktop-up { display: block; }
+  .wide-only { display: block; }
+  .wide-up { display: block; }
+}

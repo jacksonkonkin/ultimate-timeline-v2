@@ -1,0 +1,13 @@
+New Task Instance:
+
+1. look through claude.md file and undersrtand what task you are assigned and your instructions, then look through the codebase and think about how you will complete the task
+
+2. update anything that is needed for: '/Users/jacksonkonkin/Documents/ultimate-timeline/v2/TECHNICAL_DETAILS.md' 
+and'/Users/jacksonkonkin/Documents/ultimate-timeline/v2/.claude/CLAUDE.md'. 
+Look for changes to project or completion of tasks sort of thing and then push your changes to github
+
+your job is to debug this problem:
+
+
+
+ultrathink about how you will tackle this problem and then present a plan that is mangebale in one claude code instance
