@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, PageWrapper, ResponsiveGrid } from './layout';
-import { useAuthStore } from '../store/authStore';
-import AdminDashboard from './AdminDashboard';
+import { useAuth } from '../context/AuthContext';
 import { authService } from '../utils/supabase';
 import './TradingDashboard.css';
 
@@ -10,9 +9,9 @@ const TradingDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   
-  // Get real user data from auth store
-  const { getUserProfile } = useAuthStore();
-  const authUserProfile = getUserProfile();
+  // Get real user data from auth context
+  const { user: authUser } = useAuth();
+  const authUserProfile = authUser;
 
   useEffect(() => {
     checkUserProfile();
@@ -64,7 +63,10 @@ const TradingDashboard = () => {
             { label: 'Admin' }
           ]}
         >
-          <AdminDashboard />
+          <div style={{ padding: '2rem', textAlign: 'center' }}>
+            <h3>Admin Dashboard</h3>
+            <p>Admin features coming soon...</p>
+          </div>
         </PageWrapper>
       </Layout>
     );
