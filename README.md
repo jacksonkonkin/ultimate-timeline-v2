@@ -14,3 +14,6 @@
 - **Live at**: http://localhost:3001 (run `cd notes-app && npm start`)
 
 **Tech Stack**: React, CSS3, localStorage API
+
+2. Connected to Supabase DB
+3. Delploy on vercel
