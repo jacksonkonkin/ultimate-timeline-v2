@@ -168,20 +168,22 @@ const PageWrapper = ({
             </nav>
           )}
           
-          <div className="page-title-section">
-            {title && (
-              <h1 className="page-title">{title}</h1>
-            )}
-            {subtitle && (
-              <p className="page-subtitle">{subtitle}</p>
+          <div className="page-title-and-actions">
+            <div className="page-title-section">
+              {title && (
+                <h1 className="page-title">{title}</h1>
+              )}
+              {subtitle && (
+                <p className="page-subtitle">{subtitle}</p>
+              )}
+            </div>
+            
+            {actions && (
+              <div className="page-actions">
+                {actions}
+              </div>
             )}
           </div>
-          
-          {actions && (
-            <div className="page-actions">
-              {actions}
-            </div>
-          )}
         </div>
       )}
 

@@ -17,23 +17,29 @@ notes-app/
 │   │   │   ├── PrivateRoute.jsx ✅ IMPLEMENTED
 │   │   │   └── auth-simplified.css ✅ IMPLEMENTED
 │   │   ├── layout/
-│   │   │   ├── Header.jsx ✅ IMPLEMENTED
-│   │   │   ├── Header.css ✅ IMPLEMENTED
-│   │   │   ├── Layout.jsx ✅ IMPLEMENTED
-│   │   │   ├── Layout.css ✅ IMPLEMENTED
+│   │   │   ├── Header.jsx ✅ IMPLEMENTED (UPDATED: Portfolio in center)
+│   │   │   ├── Header.css ✅ IMPLEMENTED (UPDATED: Side-by-side layout)
+│   │   │   ├── Layout.jsx ✅ IMPLEMENTED (UPDATED: Page actions layout)
+│   │   │   ├── Layout.css ✅ IMPLEMENTED (UPDATED: Responsive improvements)
 │   │   │   ├── Sidebar.jsx ✅ IMPLEMENTED
 │   │   │   ├── Sidebar.css ✅ IMPLEMENTED
 │   │   │   ├── BottomNav.jsx ✅ IMPLEMENTED
 │   │   │   ├── BottomNav.css ✅ IMPLEMENTED
 │   │   │   ├── Grid.jsx ✅ IMPLEMENTED
 │   │   │   └── Grid.css ✅ IMPLEMENTED
-│   │   ├── TradingDashboard.jsx ✅ IMPLEMENTED
-│   │   ├── TradingDashboard.css ✅ IMPLEMENTED
+│   │   ├── stock/
+│   │   │   ├── StockSearch.js ✅ NEW - Interactive TSX stock search
+│   │   │   └── StockSearch.css ✅ NEW - Glass morphism styling
+│   │   ├── TradingDashboard.jsx ✅ IMPLEMENTED (UPDATED: Stock search integration)
+│   │   ├── TradingDashboard.css ✅ IMPLEMENTED (UPDATED: Dashboard actions styling)
 │   │   └── DatabaseChecker.jsx ✅ IMPLEMENTED
 │   ├── context/
 │   │   └── AuthContext.jsx ✅ IMPLEMENTED
+│   ├── services/
+│   │   └── marketDataService.js ✅ NEW - Market data service layer
 │   ├── utils/
-│   │   └── supabase.js ✅ IMPLEMENTED
+│   │   ├── supabase.js ✅ IMPLEMENTED
+│   │   └── stockApi.js ✅ NEW - Alpha Vantage API integration
 │   ├── design-tokens.css ✅ IMPLEMENTED
 │   ├── index.css ✅ IMPLEMENTED
 │   ├── App.css ✅ IMPLEMENTED
@@ -107,15 +113,47 @@ notes-app/
 - **Responsive breakpoints**: Mobile-first approach
 - **Dark theme**: Professional trading interface colors
 
-#### 3.4 Trading Dashboard ✅ MVP IMPLEMENTED
-- **TradingDashboard.jsx**: Main dashboard component with:
-  - Portfolio summary cards
-  - Recent activity feed
-  - Market overview section
-  - Quick action buttons
-  - Responsive grid layout
+#### 3.4 Stock Data Integration ✅ NEW - TASK 2.2 COMPLETE
+- **Stock API Client (stockApi.js)**:
+  - Alpha Vantage API integration for TSX stocks
+  - Rate limiting (12-second delays for free tier)
+  - Response caching (5-minute duration)
+  - TSX symbol formatting (.TO, .V, .CN suffixes)
+  - Error handling and fallbacks
 
-#### 3.5 Router System ✅ IMPLEMENTED
+- **Market Data Service (marketDataService.js)**:
+  - High-level service layer with formatting utilities
+  - Watchlist management with localStorage persistence
+  - Multiple quote fetching with rate limit respect
+  - Chart data filtering by time periods
+  - Market status detection (TSX hours)
+  - Currency/number formatting (CAD)
+
+- **Stock Search Component (StockSearch.js)**:
+  - Interactive search with autocomplete
+  - Popular TSX stocks pre-loaded
+  - Keyboard navigation (arrow keys, enter, escape)
+  - Click outside to close functionality
+  - Loading states and error handling
+  - Glass morphism styling with backdrop blur
+
+- **Dashboard Integration**:
+  - Stock search moved to page actions header
+  - Real-time quote display with formatted pricing
+  - Stock info positioned above portfolio summary
+  - Market status indicator
+  - Open/High/Low/Volume statistics display
+
+#### 3.5 Trading Dashboard ✅ UPDATED IMPLEMENTATION
+- **TradingDashboard.jsx**: Enhanced dashboard with:
+  - Stock search integration in header actions
+  - Selected stock quote display (priority positioning)
+  - Portfolio summary cards
+  - Market overview section
+  - Responsive layout improvements
+  - Real-time stock data fetching
+
+#### 3.6 Router System ✅ IMPLEMENTED
 - **React Router 7.8.2**: Latest version installed and configured
 - **Route protection**: PrivateRoute component working
 - **Navigation**: Integrated with layout components
@@ -375,6 +413,15 @@ npm install lightweight-charts zustand @tanstack/react-query
 - [ ] State management (Zustand)
 - [ ] Advanced UI interactions
 
+#### Recently Completed ✅
+- [x] **Database Schema Design** (Task 2.1) - COMPLETED
+  - Extended user_profiles table with portfolio data (balance, P&L, XP)
+  - Created comprehensive trading database schema
+  - Added 8 new tables: stocks, trades, positions, watchlists, achievements, market_data
+  - Implemented Row Level Security policies
+  - Added business logic functions and triggers
+  - Seeded with sample stocks and achievements
+
 #### Planned 📅
 - [ ] Real-time data feeds
 - [ ] Portfolio calculations
@@ -418,12 +465,71 @@ src/
 
 ---
 
+### 15. Database Schema Implementation ✅ COMPLETE
+
+#### 15.1 Trading Database Schema - IMPLEMENTED
+**File**: `notes-app/trading-schema-migration.sql`
+
+**Core Tables Created:**
+- **user_profiles** (extended): Portfolio data, balance, P&L, XP system
+- **stocks**: Master securities table with current prices and metadata
+- **trades**: Complete transaction history with order types (market/limit/stop)
+- **positions**: Real-time holdings with P&L calculations
+- **watchlists**: User stock tracking and organization
+- **watchlist_items**: Many-to-many relationship for watchlist stocks
+- **achievements**: Gamification system with flexible criteria
+- **user_achievements**: Track earned badges and progress
+- **market_data**: Historical price data for charting
+
+#### 15.2 Advanced Features Implemented
+- **Row Level Security**: Comprehensive policies for all user data
+- **Business Logic Functions**: Automatic position updates via triggers
+- **Performance Indexes**: Optimized queries for trading data
+- **Order Management**: Support for market, limit, and stop orders
+- **Gamification**: Achievement system with XP and levels
+- **Seed Data**: 10 popular stocks and sample achievements
+
+#### 15.3 Database Schema Highlights
+```sql
+-- Extended user profile with trading data
+ALTER TABLE user_profiles ADD COLUMN
+  current_balance DECIMAL(12,2) DEFAULT 100000.00,
+  total_portfolio_value DECIMAL(12,2) DEFAULT 100000.00,
+  daily_pnl DECIMAL(12,2) DEFAULT 0.00,
+  user_level INTEGER DEFAULT 1,
+  experience_points INTEGER DEFAULT 0;
+
+-- Comprehensive trades table
+CREATE TABLE trades (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id),
+  stock_id UUID REFERENCES stocks(id),
+  trade_type VARCHAR(10) CHECK (trade_type IN ('buy', 'sell')),
+  order_type VARCHAR(10) CHECK (order_type IN ('market', 'limit', 'stop')),
+  quantity INTEGER CHECK (quantity > 0),
+  price_per_share DECIMAL(10,4),
+  status VARCHAR(20) DEFAULT 'pending'
+);
+
+-- Automatic position management
+CREATE OR REPLACE FUNCTION update_position_after_trade()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Business logic for updating positions and balances
+END;
+```
+
 ## Next Development Session Priorities
 
-1. **Install missing dependencies** (lightweight-charts, zustand)
-2. **Create stock data service layer**
-3. **Implement basic chart components**
-4. **Add trading form components**
+1. **Stock Data API Integration** (Task 2.2) - NEXT PRIORITY
+   - Research and choose stock data provider (Alpha Vantage, IEX)
+   - Create API client utility functions
+   - Implement stock search functionality
+   - Add price fetching and caching
+
+2. **Install missing dependencies** (lightweight-charts, zustand)
+3. **Create stock data service layer**
+4. **Implement basic chart components**
 5. **Set up state management with Zustand**
 
-The foundation is solid and ready for trading-specific feature development.
+The foundation with complete database schema is now ready for trading-specific feature development.

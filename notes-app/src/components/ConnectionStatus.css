@@ -1,0 +1,270 @@
+/* Connection Status Component Styles */
+.connection-status {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-body);
+  user-select: none;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: var(--primary-surface-hover);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.status-indicator:hover {
+  background: var(--primary-surface-active);
+  border-color: var(--border-primary);
+  transform: translateY(-1px);
+}
+
+.status-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.status-text {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.status-indicator:hover .status-text {
+  color: var(--text-primary);
+}
+
+/* Connection Details */
+.connection-details {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-left: var(--space-sm);
+  padding-left: var(--space-sm);
+  border-left: 1px solid var(--border-subtle);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.detail-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+.detail-value {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* Status Tooltip */
+.status-tooltip {
+  position: absolute;
+  top: calc(100% + var(--space-sm));
+  left: 0;
+  min-width: 280px;
+  background: var(--primary-surface);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-md);
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+  background: linear-gradient(135deg, 
+    var(--primary-surface) 0%, 
+    rgba(19, 24, 37, 0.95) 100%
+  );
+}
+
+.tooltip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.tooltip-title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tooltip-status {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tooltip-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.tooltip-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xs);
+}
+
+.tooltip-item > span:first-child {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.tooltip-item > span:last-child {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+/* Symbols List */
+.tooltip-symbols {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.tooltip-symbols > span:first-child {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.symbols-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.symbol-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-xs);
+  background: var(--accent-blue-alpha);
+  color: var(--accent-blue);
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
+/* Reconnect Button */
+.reconnect-button {
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reconnect-button:hover {
+  background: var(--accent-blue-hover);
+  transform: translateY(-1px);
+}
+
+.reconnect-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .connection-details {
+    display: none;
+  }
+  
+  .status-tooltip {
+    left: -100px;
+    min-width: 250px;
+  }
+  
+  .symbols-list {
+    gap: 2px;
+  }
+  
+  .symbol-tag {
+    font-size: 9px;
+    padding: 2px 4px;
+  }
+}
+
+/* Animation States */
+.status-indicator[data-state="connecting"] .status-text,
+.status-indicator[data-state="reconnecting"] .status-text {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Color Variants for Different States */
+.connection-status[data-state="connected"] {
+  --status-color: var(--accent-green);
+}
+
+.connection-status[data-state="connecting"],
+.connection-status[data-state="reconnecting"] {
+  --status-color: var(--accent-gold);
+}
+
+.connection-status[data-state="disconnected"],
+.connection-status[data-state="offline"] {
+  --status-color: var(--accent-red);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .status-indicator {
+    animation: none !important;
+  }
+  
+  .status-tooltip {
+    transition: none;
+  }
+  
+  .reconnect-button:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .status-indicator {
+    border-width: 2px;
+  }
+  
+  .status-tooltip {
+    border-width: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
