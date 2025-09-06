@@ -14,8 +14,6 @@ const Header = ({
   className = '',
   ...props 
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showSearch, setShowSearch] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const navigate = useNavigate();
   
@@ -24,11 +22,6 @@ const Header = ({
 
   const isPositiveChange = dailyChange >= 0;
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    // TODO: Implement stock search
-    console.log('Search query:', searchQuery);
-  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -67,30 +60,8 @@ const Header = ({
           </div>
         </div>
 
-        {/* Search Bar */}
+        {/* Header Center - Portfolio Summary */}
         <div className="header-center">
-          <form onSubmit={handleSearchSubmit} className={`search-form ${showSearch ? 'expanded' : ''}`}>
-            <button 
-              type="button"
-              className="search-toggle"
-              onClick={() => setShowSearch(!showSearch)}
-              aria-label="Toggle search"
-            >
-              🔍
-            </button>
-            <input
-              type="text"
-              placeholder="Search stocks, ETFs..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
-            />
-          </form>
-        </div>
-
-        {/* Portfolio & User Info */}
-        <div className="header-right">
-          {/* Portfolio Summary */}
           {user && (
             <div className="portfolio-summary">
               <div className="portfolio-value">
@@ -109,7 +80,10 @@ const Header = ({
               </div>
             </div>
           )}
+        </div>
 
+        {/* User Info */}
+        <div className="header-right">
           {/* User Avatar / Auth */}
           <div className="user-section">
             {isAuthenticated && authUser ? (

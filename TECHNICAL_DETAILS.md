@@ -17,23 +17,29 @@ notes-app/
 │   │   │   ├── PrivateRoute.jsx ✅ IMPLEMENTED
 │   │   │   └── auth-simplified.css ✅ IMPLEMENTED
 │   │   ├── layout/
-│   │   │   ├── Header.jsx ✅ IMPLEMENTED
-│   │   │   ├── Header.css ✅ IMPLEMENTED
-│   │   │   ├── Layout.jsx ✅ IMPLEMENTED
-│   │   │   ├── Layout.css ✅ IMPLEMENTED
+│   │   │   ├── Header.jsx ✅ IMPLEMENTED (UPDATED: Portfolio in center)
+│   │   │   ├── Header.css ✅ IMPLEMENTED (UPDATED: Side-by-side layout)
+│   │   │   ├── Layout.jsx ✅ IMPLEMENTED (UPDATED: Page actions layout)
+│   │   │   ├── Layout.css ✅ IMPLEMENTED (UPDATED: Responsive improvements)
 │   │   │   ├── Sidebar.jsx ✅ IMPLEMENTED
 │   │   │   ├── Sidebar.css ✅ IMPLEMENTED
 │   │   │   ├── BottomNav.jsx ✅ IMPLEMENTED
 │   │   │   ├── BottomNav.css ✅ IMPLEMENTED
 │   │   │   ├── Grid.jsx ✅ IMPLEMENTED
 │   │   │   └── Grid.css ✅ IMPLEMENTED
-│   │   ├── TradingDashboard.jsx ✅ IMPLEMENTED
-│   │   ├── TradingDashboard.css ✅ IMPLEMENTED
+│   │   ├── stock/
+│   │   │   ├── StockSearch.js ✅ NEW - Interactive TSX stock search
+│   │   │   └── StockSearch.css ✅ NEW - Glass morphism styling
+│   │   ├── TradingDashboard.jsx ✅ IMPLEMENTED (UPDATED: Stock search integration)
+│   │   ├── TradingDashboard.css ✅ IMPLEMENTED (UPDATED: Dashboard actions styling)
 │   │   └── DatabaseChecker.jsx ✅ IMPLEMENTED
 │   ├── context/
 │   │   └── AuthContext.jsx ✅ IMPLEMENTED
+│   ├── services/
+│   │   └── marketDataService.js ✅ NEW - Market data service layer
 │   ├── utils/
-│   │   └── supabase.js ✅ IMPLEMENTED
+│   │   ├── supabase.js ✅ IMPLEMENTED
+│   │   └── stockApi.js ✅ NEW - Alpha Vantage API integration
 │   ├── design-tokens.css ✅ IMPLEMENTED
 │   ├── index.css ✅ IMPLEMENTED
 │   ├── App.css ✅ IMPLEMENTED
@@ -107,15 +113,47 @@ notes-app/
 - **Responsive breakpoints**: Mobile-first approach
 - **Dark theme**: Professional trading interface colors
 
-#### 3.4 Trading Dashboard ✅ MVP IMPLEMENTED
-- **TradingDashboard.jsx**: Main dashboard component with:
-  - Portfolio summary cards
-  - Recent activity feed
-  - Market overview section
-  - Quick action buttons
-  - Responsive grid layout
+#### 3.4 Stock Data Integration ✅ NEW - TASK 2.2 COMPLETE
+- **Stock API Client (stockApi.js)**:
+  - Alpha Vantage API integration for TSX stocks
+  - Rate limiting (12-second delays for free tier)
+  - Response caching (5-minute duration)
+  - TSX symbol formatting (.TO, .V, .CN suffixes)
+  - Error handling and fallbacks
 
-#### 3.5 Router System ✅ IMPLEMENTED
+- **Market Data Service (marketDataService.js)**:
+  - High-level service layer with formatting utilities
+  - Watchlist management with localStorage persistence
+  - Multiple quote fetching with rate limit respect
+  - Chart data filtering by time periods
+  - Market status detection (TSX hours)
+  - Currency/number formatting (CAD)
+
+- **Stock Search Component (StockSearch.js)**:
+  - Interactive search with autocomplete
+  - Popular TSX stocks pre-loaded
+  - Keyboard navigation (arrow keys, enter, escape)
+  - Click outside to close functionality
+  - Loading states and error handling
+  - Glass morphism styling with backdrop blur
+
+- **Dashboard Integration**:
+  - Stock search moved to page actions header
+  - Real-time quote display with formatted pricing
+  - Stock info positioned above portfolio summary
+  - Market status indicator
+  - Open/High/Low/Volume statistics display
+
+#### 3.5 Trading Dashboard ✅ UPDATED IMPLEMENTATION
+- **TradingDashboard.jsx**: Enhanced dashboard with:
+  - Stock search integration in header actions
+  - Selected stock quote display (priority positioning)
+  - Portfolio summary cards
+  - Market overview section
+  - Responsive layout improvements
+  - Real-time stock data fetching
+
+#### 3.6 Router System ✅ IMPLEMENTED
 - **React Router 7.8.2**: Latest version installed and configured
 - **Route protection**: PrivateRoute component working
 - **Navigation**: Integrated with layout components

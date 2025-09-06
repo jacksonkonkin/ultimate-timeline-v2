@@ -48,11 +48,11 @@
 - [x] Write Supabase migration scripts
 
 **Task 2.2: Stock Data API Integration**
-- [ ] Research and choose stock data provider (Alpha Vantage, IEX)
-- [ ] Create API client utility functions
-- [ ] Implement stock search functionality
-- [ ] Add price fetching and caching
-- [ ] Build market data service layer
+- [x] Research and choose stock data provider (Alpha Vantage, IEX)
+- [x] Create API client utility functions
+- [x] Implement stock search functionality
+- [x] Add price fetching and caching
+- [x] Build market data service layer
 
 **Task 2.3: Real-time Data Setup**
 - [ ] Configure WebSocket connection for live prices
