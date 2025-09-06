@@ -111,6 +111,9 @@ const StockSearch = ({ onStockSelect, placeholder = "Search TSX stocks..." }) =>
         setSelectedIndex(-1);
         searchRef.current?.blur();
         break;
+      
+      default:
+        break;
     }
   };
 
